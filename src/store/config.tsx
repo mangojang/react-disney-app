@@ -1,3 +1,4 @@
+import { movieAPI } from '@/api';
 import counterSlice from '@/store/slices/counterSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
@@ -7,13 +8,14 @@ const logger = createLogger();
 
 const rootReducer = combineReducers({
 	counter: counterSlice.reducer,
+	[movieAPI.reducerPath]: movieAPI.reducer,
 });
 
 const initialState = {};
 
 export const store = configureStore({
 	reducer: rootReducer,
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
+	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger, movieAPI.middleware),
 	devTools: process.env.NODE_ENV !== 'production',
 	preloadedState: initialState,
 	enhancers: defaultEnhancers => [...defaultEnhancers],

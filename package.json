@@ -24,7 +24,11 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
+    "redux-logger": "^3.0.6",
     "sass": "^1.62.1",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/redux-logger": "^3.0.9"
   }
 }

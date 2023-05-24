@@ -19,8 +19,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en">
 			<body className={inter.className}>
 				<Provider store={store}>
-					<Nav />
-					{children}
+					<main className="container">
+						<Nav />
+						{children}
+					</main>
 				</Provider>
 			</body>
 		</html>

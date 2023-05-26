@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, FetchBaseQueryError} from '@reduxjs/toolkit/query/react';
 import requests from './request';
 
 export const movieAPI = createApi({
@@ -11,12 +11,17 @@ export const movieAPI = createApi({
 		},
 	}),
 	endpoints: build => ({
-		//query 추가
-		getNowPlaying: build.query({
-			query: () => ({ url: `${requests.fetchNowPlaying}?language=ko-KR` }),
+		getRandomMoviedetail: build.query({
+			async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+				const nowPlaying = await fetchWithBQ(`${requests.fetchNowPlaying}?language=ko-KR`);
+				if (nowPlaying.error) return { error: nowPlaying.error as FetchBaseQueryError };
+				const movieId = nowPlaying.data.results[Math.floor(Math.random() * nowPlaying.data.results.length)].id;
+				const movieDetail = await fetchWithBQ(`/movie/${movieId}?append_to_response=videos&language=ko-KR`);
+				return movieDetail.data ? { data: movieDetail.data } : { error: movieDetail.error as FetchBaseQueryError };
+			},
 		}),
 		//mutation 추가
 	}),
 });
 
-export const { useGetNowPlayingQuery } = movieAPI;
+export const { useGetRandomMoviedetailQuery } = movieAPI;

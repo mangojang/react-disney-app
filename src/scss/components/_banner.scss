@@ -67,7 +67,8 @@
 
 	@include mobile {
 		&__contents {
-			padding-left: 2.3rem;
+			padding-left: 2rem;
+			padding-right: 2rem;
 			margin-left: 0px;
 		}
 		&__description {

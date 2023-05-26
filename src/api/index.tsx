@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery, FetchBaseQueryError} from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import requests from './request';
 
 export const movieAPI = createApi({
@@ -20,8 +20,11 @@ export const movieAPI = createApi({
 				return movieDetail.data ? { data: movieDetail.data } : { error: movieDetail.error as FetchBaseQueryError };
 			},
 		}),
+		getRowMovieLists: build.query({
+			query: (fetchUrl: string) => `${requests[fetchUrl]}?language=ko-KR`,
+		}),
 		//mutation 추가
 	}),
 });
 
-export const { useGetRandomMoviedetailQuery } = movieAPI;
+export const { useGetRandomMoviedetailQuery, useGetRowMovieListsQuery } = movieAPI;

@@ -3,7 +3,7 @@
 .container {
 	position: relative;
 	min-height: calc(100vh - 70px);
-	overflow-x: hidden;
+	overflow: hidden;
 	display: block;
 	top: 70px;
 	padding: 0 calc(3.5vw + 5px);

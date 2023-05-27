@@ -1,80 +1,59 @@
 @use '../abstracts' as *;
 
 .row {
+	margin-top: 30px;
+	h2 {
+		font-size: 1.2rem;
+		margin-bottom: 0.5rem;
+	}
 	.slider {
 		position: relative;
-		&__arrow {
-			background-clip: content-box;
-			padding: 20px 0;
-			transition: all 0.2s ease-in;
-			cursor: pointer;
-			width: 80px;
-			z-index: 99;
-			position: absolute;
-			top: 0;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+		.swiper-button-prev,
+		.swiper-button-next {
 			visibility: hidden;
-			box-sizing: border-box;
-			&:hover {
-				background: $hover-bg-color;
-			}
-			&-left {
-				left: 0;
-			}
-			&-right {
-				right: 0;
-			}
-			.arrow {
-				transition: transform 0.2s ease-in-out;
-				&:hover {
-					transform: scale(1.5);
-				}
-			}
 		}
 		&:hover {
-			.slider__arrow {
+			.swiper-button-prev,
+			.swiper-button-next {
 				visibility: visible;
 			}
 		}
 	}
-	&__posters {
-		display: flex;
-		overflow-y: hidden;
-		overflow-x: scroll;
-		padding: 20px 0 20px 20px;
-		scroll-behavior: smooth;
-		&::-webkit-scrollbar {
-			display: none;
-		}
-	}
 	&__poster {
-		width: calc(100vw / 5);
-		margin-right: 16px;
-		border-radius: 4px;
-		overflow: hidden;
-		transition: transform 0.2s;
+		padding: 16px 0;
 		cursor: pointer;
-		&:hover {
-			transform: scale(1.08);
-		}
 		&__inner {
+			border-radius: 4px;
+			overflow: hidden;
 			padding-top: 56.5%;
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: center;
+			transition: transform 0.2s;
 		}
-		@include tablet {
-			width: calc(100vw / 4);
-		}
-		@include mobile {
-			width: calc(100vw / 2);
+		&:hover {
+			.row__poster__inner {
+				transform: scale(1.08);
+			}
 		}
 	}
 	&--skeleton {
-		width: 100%;
-		height: 200px;
+		&__posters {
+			width: 100%;
+			height: 200px;
+		}
+	}
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+	color: white !important;
+	transition: all 0.2s ease-in;
+	&:hover {
+		transform: scale(1.5);
+	}
+	&:after {
+		font-size: 1.3rem !important;
+		font-weight: 600 !important;
 	}
 }

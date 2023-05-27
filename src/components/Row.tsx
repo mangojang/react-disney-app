@@ -1,7 +1,12 @@
 import { movieAPI } from '@/api';
 import { Data } from '@/types/movie';
-import Image from 'next/image';
 import React from 'react';
+import { Navigation, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 interface PropsType {
 	title: string;
@@ -15,34 +20,43 @@ const Row = ({ title, id, fetchUrl }: PropsType) => {
 	const movieData: any = rowMovie.data?.results;
 
 	if (rowMovie.isLoading) {
-		return <div className="row--skeleton skeleton"></div>;
+		return (
+			<div className="row row--skeleton">
+				<h2>{title}</h2>
+				<div className="row--skeleton__posters skeleton"></div>
+			</div>
+		);
 	} else {
 		return (
 			<div className="row">
 				<h2>{title}</h2>
 				<div className="slider">
-					<div className="slider__arrow slider__arrow-left">
-						<span className="arrow">{'<'}</span>
-					</div>
-					<div id={id} className="row__posters" style={{ width: movieData.length * 256 + 'px' }}>
-						{movieData.map((v: Data) => (
-							// <Image
-							// 	key={v.id}
-							// 	className="row__poster"
-							// 	src={`http://image.tmdb/org/t/p/original${v.backdrop_path}`}
-							// 	alt={v.title}
-							// 	fill
-							// />
-							<div key={v.id} className="row__poster">
-								<div
-									className="row__poster__inner"
-									style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${v.backdrop_path})` }}
-								></div>
-							</div>
-						))}
-					</div>
-					<div className="slider__arrow slider__arrow-right">
-						<span className="arrow">{'>'}</span>
+					<div id={id} className="row__posters">
+						<Swiper
+							modules={[Navigation, A11y]}
+							spaceBetween={16}
+							navigation
+							breakpoints={{
+								335: {
+									slidesPerView: 2,
+								},
+								758: {
+									slidesPerView: 3,
+								},
+								1024: {
+									slidesPerView: 4,
+								},
+							}}
+						>
+							{movieData?.map((v: Data) => (
+								<SwiperSlide key={v.id} className="row__poster">
+									<div
+										className="row__poster__inner"
+										style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${v.backdrop_path})` }}
+									></div>
+								</SwiperSlide>
+							))}
+						</Swiper>
 					</div>
 				</div>
 			</div>

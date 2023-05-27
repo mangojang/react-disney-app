@@ -21,7 +21,14 @@ export const movieAPI = createApi({
 			},
 		}),
 		getRowMovieLists: build.query({
-			query: (fetchUrl: string) => `${requests[fetchUrl]}?language=ko-KR`,
+			query: (fetchUrl: string) => {
+				const url = requests[fetchUrl];
+				if (url.indexOf('?') < 0) {
+					return `${url}?language=ko-KR`;
+				} else {
+					return `${url}&language=ko-KR`;
+				}
+			},
 		}),
 		//mutation 추가
 	}),

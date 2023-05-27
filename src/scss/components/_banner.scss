@@ -3,7 +3,7 @@
 .banner {
 	background-position: top center;
 	background-size: cover;
-	color: white;
+	color: $text-color--white;
 	object-fit: contian;
 	height: 448px;
 	position: relative;
@@ -51,12 +51,12 @@
 		padding: 0.4rem 1rem;
 		margin-right: 1rem;
 		&.play {
-			background-color: white;
-			color: black;
+			background-color: $bg-color--white;
+			color: $text-color--black;
 		}
 		&:hover {
-			color: black;
-			background-color: $btn-white-hover-bg-color;
+			color: $text-color--black;
+			@include bgcolor-white-alpha(0.9);
 			transition: all 0.2s;
 		}
 	}

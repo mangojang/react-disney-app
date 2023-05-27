@@ -47,7 +47,7 @@
 
 .swiper-button-prev,
 .swiper-button-next {
-	color: white !important;
+	color: $text-color--white !important;
 	transition: all 0.2s ease-in;
 	&:hover {
 		transform: scale(1.5);

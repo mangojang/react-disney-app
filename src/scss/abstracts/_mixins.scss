@@ -17,3 +17,15 @@
 		@content;
 	}
 }
+
+@mixin bgcolor-black-alpha($alpha) {
+	background-color: rgba(0, 0, 0, $alpha);
+}
+
+@mixin bgcolor-white-alpha($alpha) {
+	background-color: rgba(170, 170, 170, $alpha);
+}
+
+@mixin bordercolor-grey-alpha($alpha) {
+	background-color: rgba(249, 249, 249, $alpha);
+}

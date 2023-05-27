@@ -1,22 +1,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const Nav = () => {
 	const [show, setShow] = useState(false);
-	useEffect(() => {
-		window.addEventListener('scroll', () => {
-			if (window.scrollY > 50) {
-				setShow(true);
-			} else {
-				setShow(false);
-			}
-		});
 
-		return () => {
-			window.removeEventListener('scroll', () => {});
-		};
+	const handleScroll = useCallback(() => {
+		if (window.scrollY > 50) {
+			setShow(true);
+		} else {
+			setShow(false);
+		}
 	}, []);
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.addEventListener('scroll', handleScroll);
+		};
+	}, [handleScroll]);
 
 	return (
 		<nav className={show ? 'on' : ''}>

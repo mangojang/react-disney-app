@@ -40,6 +40,8 @@ export interface Data {
 	vote_average: number;
 	vote_count: number;
 	videos?: Videos;
+	name?: string;
+	first_air_date?: string;
 }
 
 export interface BelongsToCollection {

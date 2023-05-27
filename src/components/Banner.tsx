@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { movieAPI } from '@/api';
 
 const Banner = () => {
-	const randomMovieDetail = movieAPI.useGetRandomMoviedetailQuery();
+	const randomMovieDetail = movieAPI.useGetRandomMoviedetailQuery('');
 	console.log('@@results', randomMovieDetail);
 	const movieData: any = randomMovieDetail.data;
 	const [isPlay, setIsPlay] = useState(false);

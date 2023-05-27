@@ -1,12 +1,14 @@
 import { movieAPI } from '@/api';
 import { Data } from '@/types/movie';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Navigation, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { useAppDispatch } from '@/store/config';
+import { setModal, setSelectedMovie } from '@/store/slices/movieSlice';
 
 interface PropsType {
 	title: string;
@@ -18,6 +20,15 @@ const Row = ({ title, id, fetchUrl }: PropsType) => {
 	const rowMovie = movieAPI.useGetRowMovieListsQuery(fetchUrl);
 	console.log(fetchUrl, rowMovie);
 	const movieData: any = rowMovie.data?.results;
+	const dispatch = useAppDispatch();
+
+	const handleClickModal = useCallback(
+		(movie: Data): void => {
+			dispatch(setSelectedMovie(movie));
+			dispatch(setModal(true));
+		},
+		[dispatch]
+	);
 
 	if (rowMovie.isLoading) {
 		return (
@@ -53,6 +64,7 @@ const Row = ({ title, id, fetchUrl }: PropsType) => {
 									<div
 										className="row__poster__inner"
 										style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${v.backdrop_path})` }}
+										onClick={() => handleClickModal(v)}
 									></div>
 								</SwiperSlide>
 							))}

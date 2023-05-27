@@ -9,6 +9,9 @@ const nextConfig = {
         config.plugins.push(new Dotenv({ silent: true }));
     
         return config;
+    },
+    images: {
+        domains: ['image.tmdb.org']
     }
 }
 

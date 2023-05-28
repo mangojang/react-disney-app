@@ -7,6 +7,12 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 16px;
+	&--empty {
+		min-height: inherit;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 	@include tablet {
 		grid-template-columns: 1fr 1fr;
@@ -15,10 +21,4 @@
 	@include mobile {
 		grid-template-columns: 1fr;
 	}
-}
-.no-results {
-	min-height: inherit;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }

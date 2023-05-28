@@ -13,7 +13,11 @@ const SearchPage = () => {
 	const debouncedTerm = useDebounce(searchTerm, 1000);
 	const searchMovies = movieAPI.useGetSearchMovieListsQuery(searchTerm, { skip: debouncedTerm ? false : true });
 	if (searchMovies.isLoading) {
-		return <div>로딩중</div>;
+		return (
+			<section className="search-container--empty">
+				<div className="loader"></div>
+			</section>
+		);
 	} else {
 		const movieDatas = searchMovies.data.results;
 		if (movieDatas.length > 0) {
@@ -36,10 +40,8 @@ const SearchPage = () => {
 			);
 		} else {
 			return (
-				<section className="no-results">
-					<div>
-						<p>찾고자 하는 검색어 "{searchTerm}"에 맞는 검색어가 없습니다.</p>
-					</div>
+				<section className="search-container--empty no-results">
+					<p>찾고자 하는 검색어 "{searchTerm}"에 맞는 검색어가 없습니다.</p>
 				</section>
 			);
 		}

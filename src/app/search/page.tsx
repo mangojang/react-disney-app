@@ -1,17 +1,17 @@
 'use client';
 
 import { movieAPI } from '@/api';
+import useDebounce from '@/hooks/useDebounce';
 import { SearchResult } from '@/types/movie';
-import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const SearchPage = () => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const searchTerm = searchParams.get('str');
-	const searchMovies = movieAPI.useGetSearchMovieListsQuery(searchTerm || '');
-
+	const searchTerm = searchParams.get('str') || '';
+	const debouncedTerm = useDebounce(searchTerm, 1000);
+	const searchMovies = movieAPI.useGetSearchMovieListsQuery(searchTerm, { skip: debouncedTerm ? false : true });
 	if (searchMovies.isLoading) {
 		return <div>로딩중</div>;
 	} else {

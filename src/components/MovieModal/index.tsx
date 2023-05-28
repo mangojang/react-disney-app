@@ -1,8 +1,9 @@
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { useAppDispatch, useAppSelector } from '@/store/config';
 import { setModal } from '@/store/slices/movieSlice';
 import { Data } from '@/types/movie';
 import Image from 'next/image';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 const MovieModal = () => {
 	const { backdrop_path, title, overview, name, release_date, first_air_date, vote_average } = useAppSelector(
@@ -14,10 +15,16 @@ const MovieModal = () => {
 		dispatch(setModal(false));
 	}, [dispatch]);
 
+	const ref = useRef<HTMLDivElement>(null);
+
+	useOnClickOutside(ref, () => {
+		dispatch(setModal(false));
+	});
+
 	return (
 		<div className="presentation" role="presentation">
 			<div className="wrapper-modal">
-				<div className="modal">
+				<div className="modal" ref={ref}>
 					<span className="modal-close" onClick={() => handleClick()}>
 						X
 					</span>

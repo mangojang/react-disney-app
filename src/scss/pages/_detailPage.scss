@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+.detailContent {
+	.detail-container {
+		max-width: 1024px;
+		margin: 0 auto;
+	}
+	&--skeleton {
+		.detail {
+			&__details {
+				height: 25px;
+			}
+			&__title {
+				height: 50px;
+			}
+			&__rate {
+				height: 30px;
+			}
+			&__overview {
+				height: 150px;
+			}
+		}
+	}
+	@include mobile {
+		.modal__content {
+			padding: 40px 0;
+		}
+	}
+}

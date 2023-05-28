@@ -55,6 +55,7 @@
 	}
 	&__title {
 		font-size: 40px;
+		line-height: 1.2;
 		margin: 16px 0;
 	}
 	&__details {
@@ -71,6 +72,9 @@
 	}
 	@include mobile {
 		overflow-y: scroll;
+		&__content {
+			padding: 40px 20px;
+		}
 		&__overview {
 			font-size: 16px;
 		}

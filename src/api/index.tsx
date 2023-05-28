@@ -10,7 +10,7 @@ export const movieAPI = createApi({
 			return headers;
 		},
 	}),
-	tagTypes: ['NowPlaying', 'ByGenre', 'BySearch'],
+	tagTypes: ['NowPlaying', 'ByGenre', 'BySearch', 'BymovieId'],
 	endpoints: build => ({
 		getRandomMoviedetail: build.query({
 			async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
@@ -37,8 +37,17 @@ export const movieAPI = createApi({
 			query: (searchTerm: string) => `${requests.fetchSearchMovies}&query=${searchTerm}`,
 			providesTags: (result, error, id) => [{ type: 'BySearch', id }],
 		}),
+		getMovieDetails: build.query({
+			query: (movieId: string) => `/movie/${movieId}?language=ko-KR`,
+			providesTags: (result, error, id) => [{ type: 'BymovieId', id }],
+		}),
 		//mutation 추가
 	}),
 });
 
-export const { useGetRandomMoviedetailQuery, useGetRowMovieListsQuery, useGetSearchMovieListsQuery } = movieAPI;
+export const {
+	useGetRandomMoviedetailQuery,
+	useGetRowMovieListsQuery,
+	useGetSearchMovieListsQuery,
+	useGetMovieDetailsQuery,
+} = movieAPI;

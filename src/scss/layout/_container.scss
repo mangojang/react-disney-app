@@ -5,8 +5,8 @@
 	min-height: calc(100vh - 70px);
 	overflow: hidden;
 	display: block;
-	top: 70px;
-	padding: 0 calc(3.5vw + 5px);
+	padding: 70px calc(3.5vw + 5px) 0;
+	box-sizing: content-box;
 	&:after {
 		background: url('/images/home-background.png') center center / cover no-repeat fixed;
 		content: '';

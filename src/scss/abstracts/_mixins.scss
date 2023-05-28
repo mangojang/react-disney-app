@@ -27,5 +27,5 @@
 }
 
 @mixin bordercolor-grey-alpha($alpha) {
-	background-color: rgba(249, 249, 249, $alpha);
+	border-color: rgba(249, 249, 249, $alpha);
 }

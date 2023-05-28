@@ -4,7 +4,7 @@ import { movieAPI } from '@/api';
 const Banner = () => {
 	const randomMovieDetail = movieAPI.useGetRandomMoviedetailQuery('');
 	console.log('@@results', randomMovieDetail);
-	const movieData: any = randomMovieDetail.data;
+
 	const [isPlay, setIsPlay] = useState(false);
 
 	const truncate = (str: string, n: number) => {
@@ -14,6 +14,7 @@ const Banner = () => {
 	if (randomMovieDetail.isLoading) {
 		return <div className="banner--skeleton skeleton"></div>;
 	} else {
+		const movieData: any = randomMovieDetail.data;
 		if (isPlay) {
 			return (
 				<div className="video-banner">

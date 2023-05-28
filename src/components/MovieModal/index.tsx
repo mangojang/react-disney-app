@@ -22,7 +22,7 @@ const MovieModal = () => {
 						X
 					</span>
 					<div className="modal__poster-img">
-						<Image src={`https://image.tmdb.org/t/p/w780${backdrop_path}`} alt="" fill objectFit="contain" />
+						<Image src={`https://image.tmdb.org/t/p/w780${backdrop_path}`} alt={title} fill objectFit="contain" />
 					</div>
 					<div className="modal__content">
 						<p className="modal__details">

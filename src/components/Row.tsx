@@ -19,7 +19,6 @@ interface PropsType {
 const Row = ({ title, id, fetchUrl }: PropsType) => {
 	const rowMovie = movieAPI.useGetRowMovieListsQuery(fetchUrl);
 	console.log(fetchUrl, rowMovie);
-	const movieData: any = rowMovie.data?.results;
 	const dispatch = useAppDispatch();
 
 	const handleClickModal = useCallback(
@@ -38,6 +37,7 @@ const Row = ({ title, id, fetchUrl }: PropsType) => {
 			</div>
 		);
 	} else {
+		const movieData: any = rowMovie.data.results;
 		return (
 			<div className="row">
 				<h2>{title}</h2>
@@ -59,7 +59,7 @@ const Row = ({ title, id, fetchUrl }: PropsType) => {
 								},
 							}}
 						>
-							{movieData?.map((v: Data) => (
+							{movieData.map((v: Data) => (
 								<SwiperSlide key={v.id} className="row__poster">
 									<div
 										className="row__poster__inner"

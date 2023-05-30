@@ -2,9 +2,10 @@
 
 import { movieAPI } from '@/api';
 import useDebounce from '@/hooks/useDebounce';
+import { useAppSelector } from '@/store/config';
 import { SearchResult } from '@/types/movie';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const SearchPage = () => {
 	const router = useRouter();
@@ -12,6 +13,14 @@ const SearchPage = () => {
 	const searchTerm = searchParams.get('str') || '';
 	const debouncedTerm = useDebounce(searchTerm, 1000);
 	const searchMovies = movieAPI.useGetSearchMovieListsQuery(searchTerm, { skip: debouncedTerm ? false : true });
+	const { isLoggedIn } = useAppSelector(state => state.user);
+
+	useEffect(() => {
+		if (!isLoggedIn) {
+			router.push('/login');
+		}
+	}, [isLoggedIn]);
+
 	if (searchMovies.isLoading) {
 		return (
 			<main className="container search--empty">

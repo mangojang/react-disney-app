@@ -1,12 +1,22 @@
 'use client';
 
 import { movieAPI } from '@/api';
+import { useAppSelector } from '@/store/config';
 import Image from 'next/image';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
 
 const DetailPage = ({ params }: { params: { id: string } }) => {
+	const router = useRouter();
 	const movieId = params.id;
 	const movieDetails = movieAPI.useGetMovieDetailsQuery(movieId);
+	const { isLoggedIn } = useAppSelector(state => state.user);
+
+	useEffect(() => {
+		if (!isLoggedIn) {
+			router.push('/login');
+		}
+	}, [isLoggedIn]);
 
 	if (!movieDetails.isSuccess) {
 		return (

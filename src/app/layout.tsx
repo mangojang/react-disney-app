@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import store from '../store/config';
 import '../scss/main.scss';
 import Nav from '@/components/Nav';
-import app from '@/firebase';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use 'variables' as *;
 
 @mixin mobile {
@@ -28,4 +29,8 @@
 
 @mixin bordercolor-grey-alpha($alpha) {
 	border-color: rgba(249, 249, 249, $alpha);
+}
+
+@mixin resposive-height($hor, $ver) {
+	padding-top: math.round($ver/$hor * 100%);
 }

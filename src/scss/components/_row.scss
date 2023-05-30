@@ -25,7 +25,7 @@
 		&__inner {
 			border-radius: 4px;
 			overflow: hidden;
-			padding-top: 56.5%;
+			@include resposive-height(500, 281);
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: center;

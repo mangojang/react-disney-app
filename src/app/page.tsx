@@ -9,7 +9,7 @@ import { useAppSelector } from '@/store/config';
 export default function Home() {
 	const isModal = useAppSelector(state => state.movie.isModal);
 	return (
-		<>
+		<main className="container">
 			{isModal && <MovieModal />}
 			<Banner />
 			<Category />
@@ -19,6 +19,6 @@ export default function Home() {
 			<Row title="Romance Movies" id="RM" fetchUrl="fetchRomanceMovies" />
 			<Row title="Horror Movies" id="HM" fetchUrl="fetchHorrorMovies" />
 			<Row title="Comedy Movies" id="CM" fetchUrl="fetchComedyMovies" />
-		</>
+		</main>
 	);
 }

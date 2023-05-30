@@ -15,4 +15,11 @@
 		opacity: 1;
 		z-index: -1;
 	}
+	&.search {
+		&--empty {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
 }

@@ -47,7 +47,7 @@
 	}
 	&__poster-img {
 		position: relative;
-		padding-top: 56.6%;
+		@include resposive-height(780, 439);
 	}
 	&__content {
 		padding: 40px;

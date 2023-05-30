@@ -7,7 +7,7 @@
 	gap: 25px;
 	grid-template-columns: repeat(5, 1fr);
 	.wrap {
-		padding-top: 56.25%;
+		@include resposive-height(600, 337);
 		border-radius: 10px;
 		box-shadow: rgba(0, 0, 0, 69%) 0px 26px 30px -10px, rgba(0, 0, 0, 73%) 0px 16px 10px -10px;
 		cursor: pointer;

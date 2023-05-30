@@ -4,12 +4,14 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import movieSlice from './slices/movieSlice';
+import userSlice from './slices/userSlice';
 
 const logger = createLogger();
 
 const rootReducer = combineReducers({
 	counter: counterSlice.reducer,
 	movie: movieSlice.reducer,
+	user: userSlice.reducer,
 	[movieAPI.reducerPath]: movieAPI.reducer,
 });
 
@@ -17,7 +19,10 @@ const initialState = {};
 
 export const store = configureStore({
 	reducer: rootReducer,
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger, movieAPI.middleware),
+	middleware: getDefaultMiddleware =>
+		getDefaultMiddleware({
+			serializableCheck: false,
+		}).concat(logger, movieAPI.middleware),
 	devTools: process.env.NODE_ENV !== 'production',
 	preloadedState: initialState,
 	enhancers: defaultEnhancers => [...defaultEnhancers],

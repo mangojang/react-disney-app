@@ -1,6 +1,6 @@
 'use client';
 
-import { movieAPI } from '@/api';
+import { getMovieDetails, getRunningQueriesThunk, movieAPI } from '@/api';
 import AppLayout from '@/components/AppLayout';
 import { useAppSelector, wrapper } from '@/store/config';
 import { setLoggedIn } from '@/store/slices/userSlice';
@@ -8,7 +8,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
-const DetailPage = ({ id }: any) => {
+interface PropsType {
+	id: string;
+}
+
+const DetailPage = ({ id }: PropsType) => {
 	const router = useRouter();
 	const movieId = id;
 	const movieDetails = movieAPI.useGetMovieDetailsQuery(movieId);
@@ -76,6 +80,10 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 		await store.dispatch(setLoggedIn(false));
 	}
 	const id = etc.params?.id;
+
+	await store.dispatch(getMovieDetails.initiate(id as string));
+	await Promise.all(store.dispatch(getRunningQueriesThunk()));
+
 	return {
 		props: { id },
 	};

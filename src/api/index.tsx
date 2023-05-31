@@ -56,4 +56,7 @@ export const {
 	useGetRowMovieListsQuery,
 	useGetSearchMovieListsQuery,
 	useGetMovieDetailsQuery,
+	util: { getRunningQueriesThunk },
 } = movieAPI;
+
+export const { getRandomMoviedetail, getRowMovieLists, getMovieDetails } = movieAPI.endpoints;

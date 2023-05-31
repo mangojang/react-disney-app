@@ -1,4 +1,4 @@
-import { movieAPI } from '@/api';
+import { getRowMovieLists, getRunningQueriesThunk, movieAPI } from '@/api';
 import { Data } from '@/types/movie';
 import React, { useCallback } from 'react';
 import { Navigation, A11y } from 'swiper';
@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { useAppDispatch } from '@/store/config';
+import { useAppDispatch, wrapper } from '@/store/config';
 import { setModal, setSelectedMovie } from '@/store/slices/movieSlice';
 
 interface PropsType {

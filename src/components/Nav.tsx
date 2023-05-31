@@ -36,6 +36,7 @@ const Nav = () => {
 				dispatch(setUser(user));
 				dispatch(setLoggedIn(true));
 			} else {
+				dispatch(setUser({}));
 				dispatch(setLoggedIn(false));
 			}
 		});
@@ -115,21 +116,21 @@ const Nav = () => {
 
 export default Nav;
 
-export async function getServerSideProps() {
-	const auth = getAuth(app);
-	const dispatch = useAppDispatch();
+// export async function getServerSideProps() {
+// 	const auth = getAuth(app);
+// 	const dispatch = useAppDispatch();
 
-	onAuthStateChanged(auth, user => {
-		console.log('@@user', user);
-		if (user) {
-			dispatch(setUser(user));
-			dispatch(setLoggedIn(true));
-		} else {
-			dispatch(setLoggedIn(false));
-		}
-	});
-	// const res = await fetch(`https://...`);
-	// const projects = await res.json();
+// 	onAuthStateChanged(auth, user => {
+// 		console.log('@@user', user);
+// 		if (user) {
+// 			dispatch(setUser(user));
+// 			dispatch(setLoggedIn(true));
+// 		} else {
+// 			dispatch(setLoggedIn(false));
+// 		}
+// 	});
+// 	// const res = await fetch(`https://...`);
+// 	// const projects = await res.json();
 
-	// return { props: { projects } };
-}
+// 	// return { props: { projects } };
+// }

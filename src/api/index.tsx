@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { HYDRATE } from 'next-redux-wrapper';
 import requests from './request';
 
 export const movieAPI = createApi({
@@ -10,6 +11,11 @@ export const movieAPI = createApi({
 			return headers;
 		},
 	}),
+	extractRehydrationInfo(action, { reducerPath }) {
+		if (action.type === HYDRATE) {
+			return action.payload[reducerPath];
+		}
+	},
 	tagTypes: ['NowPlaying', 'ByGenre', 'BySearch', 'BymovieId'],
 	endpoints: build => ({
 		getRandomMoviedetail: build.query({

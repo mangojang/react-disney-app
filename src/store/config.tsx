@@ -1,6 +1,6 @@
 import { movieAPI } from '@/api';
-import counterSlice from '@/store/slices/counterSlice';
 import { combineReducers, configureStore, PayloadAction } from '@reduxjs/toolkit';
+import { MakeStore } from 'next-redux-wrapper';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { createLogger } from 'redux-logger';
@@ -10,51 +10,36 @@ import userSlice from './slices/userSlice';
 const logger = createLogger();
 
 const rootReducer = (state: any, action: PayloadAction<any>) => {
-	switch (action.type) {
-		case HYDRATE:
-			//  console.log('HYDRATE', action);
-			return {
-				...state,
-				...action.payload,
-			};
-		default: {
-			const combinedReducer = combineReducers({
-				movie: movieSlice.reducer,
-				user: userSlice.reducer,
-			});
-			return combinedReducer(state, action);
-		}
+	// hydration이 발생했을 때 처리하는 부분
+	if (action.type === HYDRATE) {
+		return {
+			...state,
+			...action.payload,
+		};
 	}
+
+	return combineReducers({
+		movie: movieSlice.reducer,
+		user: userSlice.reducer,
+		[movieAPI.reducerPath]: movieAPI.reducer,
+	})(state, action);
 };
 
-// const rootReducer = combineReducers({
-// 	counter: counterSlice.reducer,
-// 	movie: movieSlice.reducer,
-// 	user: userSlice.reducer,
-// 	[movieAPI.reducerPath]: movieAPI.reducer,
-// });
+const makeStore: MakeStore<any> = () =>
+	configureStore({
+		reducer: rootReducer,
+		devTools: true,
+		middleware: getDefaultMiddleware =>
+			getDefaultMiddleware({
+				serializableCheck: false,
+			}).concat(logger, movieAPI.middleware),
+	});
 
-const initialState = {};
+type AppStore = ReturnType<typeof makeStore>;
+export type AppState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];
 
-export const store = configureStore({
-	reducer: rootReducer,
-	middleware: getDefaultMiddleware =>
-		getDefaultMiddleware({
-			serializableCheck: false,
-		}).concat(logger),
-	devTools: process.env.NODE_ENV !== 'production',
-	preloadedState: initialState,
-	enhancers: defaultEnhancers => [...defaultEnhancers],
-});
-
-export const wrapper = createWrapper(store, {
-	debug: process.env.NODE_ENV === 'development',
-});
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 
-export default wrapper;
+export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });

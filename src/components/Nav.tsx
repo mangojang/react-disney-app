@@ -3,6 +3,7 @@
 import app from '@/firebase';
 import { useAppDispatch, useAppSelector } from '@/store/config';
 import { setLoggedIn, setUser } from '@/store/slices/userSlice';
+import { delCookie, setCookie } from '@/utills/handleCookes';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -31,13 +32,10 @@ const Nav = () => {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, user => {
-			console.log('@@user', user);
 			if (user) {
 				dispatch(setUser(user));
 				dispatch(setLoggedIn(true));
-			} else {
-				dispatch(setUser({}));
-				dispatch(setLoggedIn(false));
+				setCookie('uid', user.uid, 1);
 			}
 		});
 	}, [auth]);
@@ -64,6 +62,7 @@ const Nav = () => {
 				const user = result.user;
 				dispatch(setUser(user));
 				dispatch(setLoggedIn(true));
+				setCookie('uid', user.uid, 1);
 			})
 			.catch(error => {
 				alert(`잠시후 다시 시도해 주세요.\n${error.message}`);
@@ -76,6 +75,7 @@ const Nav = () => {
 			.then(() => {
 				dispatch(setUser({}));
 				dispatch(setLoggedIn(false));
+				delCookie('uid');
 			})
 			.catch(error => {
 				console.log(error);
@@ -115,22 +115,3 @@ const Nav = () => {
 };
 
 export default Nav;
-
-// export async function getServerSideProps() {
-// 	const auth = getAuth(app);
-// 	const dispatch = useAppDispatch();
-
-// 	onAuthStateChanged(auth, user => {
-// 		console.log('@@user', user);
-// 		if (user) {
-// 			dispatch(setUser(user));
-// 			dispatch(setLoggedIn(true));
-// 		} else {
-// 			dispatch(setLoggedIn(false));
-// 		}
-// 	});
-// 	// const res = await fetch(`https://...`);
-// 	// const projects = await res.json();
-
-// 	// return { props: { projects } };
-// }

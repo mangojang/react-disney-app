@@ -66,6 +66,12 @@ nav {
 		cursor: pointer;
 		.userimg {
 			border-radius: 50%;
+			background-color: darkgrey;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;
+			width: 48px;
+			height: 48px;
 		}
 		.dropdown {
 			position: absolute;

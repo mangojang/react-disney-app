@@ -107,7 +107,7 @@ const Nav = () => {
 						placeholder="검색어를 입력 해주세요."
 					/>
 					<div className="profile">
-						<Image alt="profile image" className="userimg" src={photoUrl} width={48} height={48} />
+						<div className="userimg" style={photoUrl ? { backgroundImage: `url(${photoUrl})` } : {}}></div>
 						<div className="dropdown">
 							<span className="btn--logout" onClick={handleLogout}>
 								Logout

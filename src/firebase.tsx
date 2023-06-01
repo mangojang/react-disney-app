@@ -8,7 +8,7 @@ import 'firebase/auth';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-	apiKey: `${process.env.FIREBASE_API_KEY}`,
+	apiKey: `${process.env.NEXT_PUBLIC_FIREBASE_API_KEY}`,
 	authDomain: 'react-disney-app-43d60.firebaseapp.com',
 	projectId: 'react-disney-app-43d60',
 	storageBucket: 'react-disney-app-43d60.appspot.com',

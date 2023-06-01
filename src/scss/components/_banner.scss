@@ -1,0 +1,122 @@
+@use '../abstracts' as *;
+
+.banner {
+	background-position: top center;
+	background-size: cover;
+	color: $text-color--white;
+	object-fit: contian;
+	height: 448px;
+	position: relative;
+	&__contents {
+		margin-left: 40px;
+		padding-top: 160px;
+		height: 190px;
+	}
+	&__title {
+		font-size: 3rem;
+		font-weight: 800;
+		padding-bottom: 2rem;
+	}
+	&__description {
+		width: 45rem;
+		line-height: 1.3;
+		padding-top: 1rem;
+		font-weight: 500;
+		font-size: 1rem;
+		max-width: 400px;
+		height: 80px;
+	}
+	&__fadeBottom {
+		height: 7.4rem;
+		background-image: linear-gradient(180deg, transparent, rgba(37, 37, 37, 0.61), #111);
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 4rem;
+	}
+	&__buttons {
+		display: flex;
+		flex-direction: row;
+	}
+	&__button {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		cursor: pointer;
+		outline: none;
+		border: none;
+		font-size: 1rem;
+		font-weight: 700;
+		padding: 0.4rem 1rem;
+		margin-right: 1rem;
+		&.play {
+			background-color: $bg-color--white;
+			color: $text-color--black;
+		}
+		&:hover {
+			color: $text-color--black;
+			@include bgcolor-white-alpha(0.9);
+			transition: all 0.2s;
+		}
+	}
+	&--skeleton {
+		width: 100%;
+		height: 448px;
+	}
+
+	@include mobile {
+		&__contents {
+			padding-left: 2rem;
+			padding-right: 2rem;
+			padding-top: 100px;
+			margin-left: 0px;
+		}
+		&__title {
+			font-size: 2.5rem;
+		}
+		&__description {
+			font-size: 0.8rem;
+			width: auto;
+		}
+		.info {
+			text-align: start;
+			padding-right: 1.2rem;
+		}
+		.space {
+			margin-left: 6px;
+		}
+		.banner_button {
+			font-size: 0.8rem;
+			border-radius: 4px;
+		}
+	}
+}
+
+.video-banner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	height: calc(100vh - 73px);
+	&__container {
+		width: 100%;
+		height: 100%;
+	}
+	iframe {
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		opacity: 0.65;
+		border: none;
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+	}
+}

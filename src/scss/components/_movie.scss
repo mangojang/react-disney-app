@@ -1,0 +1,21 @@
+@use '../abstracts' as *;
+
+.movie {
+	&__column-poster {
+		position: relative;
+		width: 100%;
+		cursor: pointer;
+		transition: transform 0.3s;
+		&:hover {
+			transform: scale(1.05);
+		}
+	}
+	&__poster {
+		width: 100%;
+		@include resposive-height(500, 281);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		border-radius: 5px;
+	}
+}

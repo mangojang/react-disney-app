@@ -1,0 +1,59 @@
+@use '../abstracts' as *;
+
+.row {
+	margin-top: 30px;
+	h2 {
+		font-size: 1.2rem;
+		margin-bottom: 0.5rem;
+	}
+	.slider {
+		position: relative;
+		.swiper-button-prev,
+		.swiper-button-next {
+			visibility: hidden;
+		}
+		&:hover {
+			.swiper-button-prev,
+			.swiper-button-next {
+				visibility: visible;
+			}
+		}
+	}
+	&__poster {
+		padding: 16px 0;
+		cursor: pointer;
+		&__inner {
+			border-radius: 4px;
+			overflow: hidden;
+			@include resposive-height(500, 281);
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: transform 0.2s;
+		}
+		&:hover {
+			.row__poster__inner {
+				transform: scale(1.08);
+			}
+		}
+	}
+	&--skeleton {
+		&__posters {
+			width: 100%;
+			height: 200px;
+		}
+	}
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+	color: $text-color--white !important;
+	transition: all 0.2s ease-in;
+	&:hover {
+		transform: scale(1.5);
+	}
+	&:after {
+		font-size: 1.3rem !important;
+		font-weight: 600 !important;
+	}
+}

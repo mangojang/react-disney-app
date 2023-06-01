@@ -1,0 +1,18 @@
+@use '../abstracts' as *;
+
+.search-contents {
+	width: 100%;
+	text-align: center;
+	padding: 5rem 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 16px;
+
+	@include tablet {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@include mobile {
+		grid-template-columns: 1fr;
+	}
+}

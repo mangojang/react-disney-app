@@ -1,0 +1,11 @@
+@use '../abstracts' as *;
+
+body {
+	background-color: $bg-color--default;
+	color: $text-color--default;
+	font-family: Avenir-Roman, sans-serif;
+}
+a {
+	color: $text-color--default;
+	text-decoration: none;
+}

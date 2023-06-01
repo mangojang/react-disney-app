@@ -55,14 +55,3 @@ const Banner = () => {
 };
 
 export default Banner;
-
-export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
-	// RTK 쿼리 디스패치
-	await store.dispatch(getRandomMoviedetail.initiate(''));
-	// 실행된 것이 끝날 때까지 대기
-	await Promise.all(store.dispatch(getRunningQueriesThunk()));
-
-	return {
-		props: {},
-	};
-});

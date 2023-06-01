@@ -21,7 +21,7 @@ const MyApp: FC<AppProps> = function MyApp({ Component, pageProps }) {
 				<meta property="og:description" content="리액트를 사용한 디즈니 플러스 클론 사이트 입니다." key="description" />
 				<meta property="og:type" content="website" />
 				<meta property="og:image" content="/og.png" key="image" />
-				<link rel="shortcut icon" href="/favicon.ico" />
+				<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 			</Head>
 			<AppLayout>
 				<Component {...pageProps} />

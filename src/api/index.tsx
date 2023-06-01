@@ -1,6 +1,13 @@
+import { Data, Root } from '@/types/movie';
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { HYDRATE } from 'next-redux-wrapper';
 import requests from './request';
+
+interface If {
+	error?: undefined;
+	data: any;
+	meta?: any | undefined;
+}
 
 export const movieAPI = createApi({
 	reducerPath: 'movieAPI',
@@ -20,7 +27,7 @@ export const movieAPI = createApi({
 	endpoints: build => ({
 		getRandomMoviedetail: build.query({
 			async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
-				const nowPlaying = await fetchWithBQ(`${requests.fetchNowPlaying}?language=ko-KR`);
+				const nowPlaying = (await fetchWithBQ(`${requests.fetchNowPlaying}?language=ko-KR`)) as If;
 				if (nowPlaying.error) return { error: nowPlaying.error as FetchBaseQueryError };
 				const movieId = nowPlaying.data.results[Math.floor(Math.random() * nowPlaying.data.results.length)].id;
 				const movieDetail = await fetchWithBQ(`/movie/${movieId}?append_to_response=videos&language=ko-KR`);
@@ -29,7 +36,7 @@ export const movieAPI = createApi({
 			providesTags: ['NowPlaying'],
 		}),
 		getRowMovieLists: build.query({
-			query: (fetchUrl: string) => {
+			query: fetchUrl => {
 				const url = requests[fetchUrl];
 				if (url.indexOf('?') < 0) {
 					return `${url}?language=ko-KR`;

@@ -53,7 +53,7 @@ const SearchPage = () => {
 		} else {
 			return (
 				<main className="container search--empty">
-					<p>찾고자 하는 검색어 "{searchTerm}"에 맞는 검색어가 없습니다.</p>
+					<p>찾고자 하는 검색어 &ldquo;{searchTerm}&ldquo;에 맞는 검색어가 없습니다.</p>
 				</main>
 			);
 		}

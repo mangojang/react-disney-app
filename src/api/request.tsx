@@ -1,4 +1,4 @@
-const requests = {
+const requests: { [key: string]: string } = {
 	fetchNowPlaying: '/movie/now_playing',
 	fetchTrending: '/trending/all/week',
 	fetchTopRated: '/movie/top_rated',

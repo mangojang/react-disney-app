@@ -32,7 +32,7 @@ jobs:
         echo "REACT_APP_FIREBASE_API_KEY=${{ secrets.REACT_APP_FIREBASE_API_KEY }}" >> .env
     - run: npm i
     - run: npm run build --if-present
-    - run: npm test
+    - run: npm test --if-present
     - uses: awact/s3-action@master
       with:
         args: --acl public-read --follow-symlinks --delete

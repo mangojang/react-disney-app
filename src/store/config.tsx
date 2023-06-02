@@ -28,7 +28,7 @@ const rootReducer = (state: any, action: PayloadAction<any>) => {
 const makeStore: MakeStore<any> = () =>
 	configureStore({
 		reducer: rootReducer,
-		devTools: true,
+		devTools: process.env.NODE_ENV == 'development' ? true : false,
 		middleware: getDefaultMiddleware =>
 			getDefaultMiddleware({
 				serializableCheck: false,

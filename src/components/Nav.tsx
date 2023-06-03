@@ -33,15 +33,12 @@ const Nav = () => {
 	}, []);
 
 	useEffect(() => {
-		const photourl = localStorage.getItem('photoUrl');
-		photourl && setPhotoUrl(photourl);
-	}, []);
-
-	useEffect(() => {
 		onAuthStateChanged(auth, user => {
 			if (user) {
-				dispatch(setUser(user));
+				// dispatch(setUser(user));
 				dispatch(setLoggedIn(true));
+				const photourl = user.photoURL;
+				photourl && setPhotoUrl(photourl);
 				setCookie('uid', user.uid, 1);
 			}
 		});
@@ -64,13 +61,10 @@ const Nav = () => {
 		signInWithPopup(auth, provider)
 			.then(result => {
 				const user = result.user;
-				dispatch(setUser(user));
+				// dispatch(setUser(user));
 				dispatch(setLoggedIn(true));
 				setCookie('uid', user.uid, 1);
-				if (user.photoURL) {
-					setPhotoUrl(user.photoURL);
-					localStorage.setItem('photoUrl', user.photoURL);
-				}
+				user.photoURL && setPhotoUrl(user.photoURL);
 			})
 			.catch(error => {
 				alert(`잠시후 다시 시도해 주세요.\n${error.message}`);
@@ -81,11 +75,10 @@ const Nav = () => {
 	const handleLogout = useCallback(() => {
 		signOut(auth)
 			.then(() => {
-				dispatch(setUser({}));
+				// dispatch(setUser({}));
 				dispatch(setLoggedIn(false));
 				delCookie('uid');
 				setPhotoUrl('');
-				localStorage.removeItem('photoUrl');
 			})
 			.catch(error => {
 				console.log(error);

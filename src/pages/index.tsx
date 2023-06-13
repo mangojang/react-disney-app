@@ -5,20 +5,10 @@ import Category from '@/components/Category';
 import MovieModal from '@/components/MovieModal';
 import Row from '@/components/Row';
 import { wrapper, useAppSelector } from '@/store/config';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { setLoggedIn } from '@/store/slices/userSlice';
 
 export default function Home() {
-	const router = useRouter();
 	const { isModal } = useAppSelector(state => state.movie);
-	const { isLoggedIn } = useAppSelector(state => state.user);
-
-	useEffect(() => {
-		if (!isLoggedIn) {
-			router.push('/login');
-		}
-	}, [isLoggedIn]);
 
 	return (
 		<main className="container">
@@ -41,13 +31,22 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 		const [key, value] = cookie.split('=');
 		return { key: key, value: value };
 	});
+	let option = {};
 	const authCookie = cookieArr?.find(e => e.key === 'uid');
 	if (authCookie) {
 		await store.dispatch(setLoggedIn(true));
 	} else {
 		await store.dispatch(setLoggedIn(false));
+		option = {
+			redirect: {
+				permanent: false,
+				destination: '/login',
+			},
+		};
 	}
+
 	return {
+		...option,
 		props: {},
 	};
 });

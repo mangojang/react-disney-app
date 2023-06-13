@@ -10,7 +10,7 @@ nav {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 36px;
+	padding: 0 calc(3.5vw + 5px);
 	box-sizing: border-box;
 	z-index: 9;
 	transition: ease 0.2s background-color;
@@ -59,8 +59,8 @@ nav {
 	}
 	.profile {
 		position: relative;
-		width: 48px;
-		height: 48px;
+		width: 3rem;
+		height: 3rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -71,12 +71,12 @@ nav {
 			background-repeat: no-repeat;
 			background-size: cover;
 			background-position: center;
-			width: 48px;
-			height: 48px;
+			width: 3rem;
+			height: 3rem;
 		}
 		.dropdown {
 			position: absolute;
-			top: 48px;
+			top: 3rem;
 			right: 0;
 			background-color: rgb(19, 19, 19);
 			border: 1px solid rgba(151, 151, 151, 0.34);

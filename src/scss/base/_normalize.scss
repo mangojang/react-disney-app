@@ -1,5 +1,11 @@
 @use '../abstracts' as *;
 
+html {
+	@include mobile {
+		font-size: 14px;
+	}
+}
+
 body {
 	background-color: $bg-color--default;
 	color: $text-color--default;

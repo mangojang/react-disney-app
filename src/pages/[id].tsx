@@ -1,28 +1,18 @@
 'use client';
 
 import { getMovieDetails, getRunningQueriesThunk, movieAPI } from '@/api';
-import { useAppSelector, wrapper } from '@/store/config';
+import { wrapper } from '@/store/config';
 import { setLoggedIn } from '@/store/slices/userSlice';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
 
 interface PropsType {
 	id: string;
 }
 
 const DetailPage = ({ id }: PropsType) => {
-	const router = useRouter();
 	const movieId = id;
 	const movieDetails = movieAPI.useGetMovieDetailsQuery(movieId);
-	const { isLoggedIn } = useAppSelector(state => state.user);
-
-	useEffect(() => {
-		if (!isLoggedIn) {
-			router.push('/login');
-		}
-	}, [isLoggedIn]);
 
 	if (!movieDetails.isSuccess) {
 		return (
@@ -77,11 +67,18 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 		const [key, value] = cookie.split('=');
 		return { key: key, value: value };
 	});
+	let option = {};
 	const authCookie = cookieArr?.find(e => e.key === 'uid');
 	if (authCookie) {
 		await store.dispatch(setLoggedIn(true));
 	} else {
 		await store.dispatch(setLoggedIn(false));
+		option = {
+			redirect: {
+				permanent: false,
+				destination: '/login',
+			},
+		};
 	}
 	const id = etc.params?.id;
 
@@ -89,6 +86,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 	await Promise.all(store.dispatch(getRunningQueriesThunk()));
 
 	return {
+		...option,
 		props: { id },
 	};
 });

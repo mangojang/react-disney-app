@@ -65,6 +65,7 @@ const Nav = () => {
 				dispatch(setLoggedIn(true));
 				setCookie('uid', user.uid, 1);
 				user.photoURL && setPhotoUrl(user.photoURL);
+				router.push('/');
 			})
 			.catch(error => {
 				alert(`잠시후 다시 시도해 주세요.\n${error.message}`);
@@ -79,6 +80,7 @@ const Nav = () => {
 				dispatch(setLoggedIn(false));
 				delCookie('uid');
 				setPhotoUrl('');
+				router.push('/login');
 			})
 			.catch(error => {
 				console.log(error);

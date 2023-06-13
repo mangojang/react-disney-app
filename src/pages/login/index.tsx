@@ -1,22 +1,10 @@
 'use client';
 
-import { useAppSelector, wrapper } from '@/store/config';
+import { wrapper } from '@/store/config';
 import { setLoggedIn } from '@/store/slices/userSlice';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
 
 const LoginPage = () => {
-	const router = useRouter();
-	const { isLoggedIn } = useAppSelector(state => state.user);
-
-	useEffect(() => {
-		if (isLoggedIn) {
-			router.push('/');
-		}
-	}, [isLoggedIn]);
-
 	return (
 		<main className="container login">
 			<section className="login-contents">
@@ -47,14 +35,22 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 		const [key, value] = cookie.split('=');
 		return { key: key, value: value };
 	});
+	let option = {};
 	const authCookie = cookieArr?.find(e => e.key === 'uid');
 	if (authCookie) {
 		await store.dispatch(setLoggedIn(true));
+		option = {
+			redirect: {
+				permanent: false,
+				destination: '/',
+			},
+		};
 	} else {
 		await store.dispatch(setLoggedIn(false));
 	}
 
 	return {
+		...option,
 		props: {},
 	};
 });

@@ -2,11 +2,10 @@
 
 import { movieAPI } from '@/api';
 import useDebounce from '@/hooks/useDebounce';
-import { useAppSelector, wrapper } from '@/store/config';
+import { wrapper } from '@/store/config';
 import { setLoggedIn } from '@/store/slices/userSlice';
 import { SearchResult } from '@/types/movie';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
 
 const SearchPage = () => {
 	const router = useRouter();
@@ -14,13 +13,6 @@ const SearchPage = () => {
 	const searchTerm = searchParams.get('str') || '';
 	const debouncedTerm = useDebounce(searchTerm, 1000);
 	const searchMovies = movieAPI.useGetSearchMovieListsQuery(searchTerm, { skip: debouncedTerm ? false : true });
-	const { isLoggedIn } = useAppSelector(state => state.user);
-
-	useEffect(() => {
-		if (!isLoggedIn) {
-			router.push('/login');
-		}
-	}, [isLoggedIn]);
 
 	if (searchMovies.isLoading) {
 		return (
@@ -68,13 +60,21 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 		const [key, value] = cookie.split('=');
 		return { key: key, value: value };
 	});
+	let option = {};
 	const authCookie = cookieArr?.find(e => e.key === 'uid');
 	if (authCookie) {
 		await store.dispatch(setLoggedIn(true));
 	} else {
 		await store.dispatch(setLoggedIn(false));
+		option = {
+			redirect: {
+				permanent: false,
+				destination: '/login',
+			},
+		};
 	}
 	return {
+		...option,
 		props: {},
 	};
 });

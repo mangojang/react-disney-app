@@ -20,7 +20,9 @@ const Nav = () => {
 
 	const [show, setShow] = useState(false);
 	const [searchVal, setSearchVal] = useState(searchTerm || '');
-	const { isLoggedIn, userInfo } = useAppSelector(state => state.user);
+	const { isLoggedIn } = useAppSelector(state => state.user);
+
+	const [photoUrl, setPhotoUrl] = useState('');
 
 	const handleScroll = useCallback(() => {
 		if (window.scrollY > 50) {
@@ -33,8 +35,10 @@ const Nav = () => {
 	useEffect(() => {
 		onAuthStateChanged(auth, user => {
 			if (user) {
-				dispatch(setUser(user));
+				// dispatch(setUser(user));
 				dispatch(setLoggedIn(true));
+				const photourl = user.photoURL;
+				photourl && setPhotoUrl(photourl);
 				setCookie('uid', user.uid, 1);
 			}
 		});
@@ -60,9 +64,10 @@ const Nav = () => {
 		signInWithPopup(auth, provider)
 			.then(result => {
 				const user = result.user;
-				dispatch(setUser(user));
+				// dispatch(setUser(user));
 				dispatch(setLoggedIn(true));
 				setCookie('uid', user.uid, 1);
+				user.photoURL && setPhotoUrl(user.photoURL);
 			})
 			.catch(error => {
 				alert(`잠시후 다시 시도해 주세요.\n${error.message}`);
@@ -73,9 +78,10 @@ const Nav = () => {
 	const handleLogout = useCallback(() => {
 		signOut(auth)
 			.then(() => {
-				dispatch(setUser({}));
+				// dispatch(setUser({}));
 				dispatch(setLoggedIn(false));
 				delCookie('uid');
+				setPhotoUrl('');
 			})
 			.catch(error => {
 				console.log(error);
@@ -97,7 +103,7 @@ const Nav = () => {
 						placeholder="검색어를 입력 해주세요."
 					/>
 					<div className="profile">
-						<Image alt="profile image" className="userimg" src={userInfo.photoURL} width={48} height={48} />
+						<div className="userimg" style={photoUrl ? { backgroundImage: `url(${photoUrl})` } : {}}></div>
 						<div className="dropdown">
 							<span className="btn--logout" onClick={handleLogout}>
 								Logout
